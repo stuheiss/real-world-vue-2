@@ -2,6 +2,7 @@
   <div id="app">
     <NavBar />
     <NotificationContainer />
+    <!-- bind key to $route.fullPath to "force a replacement" of the <router-view> element / component every time a navigation event occurs -->
     <router-view :key="$route.fullPath" />
   </div>
 </template>
