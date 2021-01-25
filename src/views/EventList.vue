@@ -40,7 +40,7 @@ export default {
   },
   computed: {
     hasNextPage() {
-      return this.event.totalEvents > this.page * 3;
+      return this.event.totalEvents > this.page * 3
     },
     page() {
       return parseInt(this.$route.query.page) || 1
