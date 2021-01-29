@@ -1,5 +1,4 @@
 import Vue from 'vue'
-import './plugins/axios'
 import upperFirst from 'lodash/upperFirst'
 import camelCase from 'lodash/camelCase'
 import App from './App.vue'
