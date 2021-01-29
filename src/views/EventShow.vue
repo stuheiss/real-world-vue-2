@@ -29,22 +29,13 @@
 </template>
 
 <script>
-import NProgress from 'nprogress'
-import store from '@/store/store'
-import { createNamespacedHelpers } from 'vuex'
-const { mapState } = createNamespacedHelpers('event')
 export default {
-  props: ['id'],
-  beforeRouteEnter(routeTo, routeFrom, next) {
-    NProgress.start()
-    store.dispatch('event/fetchEvent', routeTo.params.id).then(() => {
-      NProgress.done()
-      next()
-    })
-  },
-  computed: mapState({
-    event: state => state.event
-  })
+  props: {
+    event: {
+      type: Object,
+      required: true,
+    }
+  }
 }
 </script>
 
