@@ -28,6 +28,8 @@
 import EventCard from '@/components/EventCard.vue'
 import { mapState } from 'vuex'
 import store from '@/store/store'
+import router from '@/router'
+import NProgress from 'nprogress'
 
 function getPageEvents(routeTo, next) {
   const currentPage = parseInt(routeTo.query.page) || 1
@@ -38,6 +40,11 @@ function getPageEvents(routeTo, next) {
     .then(() => {
       routeTo.params.page = currentPage
       next()
+    })
+    // a bit more code to handle network issues
+    .catch(() => {
+      NProgress.done()
+      router.push('/network-issue')
     })
 }
 
