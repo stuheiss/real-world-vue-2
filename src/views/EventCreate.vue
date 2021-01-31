@@ -37,7 +37,11 @@
       <h3>When is your event?</h3>
       <div class="field">
         <label>Date</label>
-        <datepicker v-model="event.date" placeholder="Select a date" />
+        <datepicker
+          v-model="event.date"
+          :format="customFormatter"
+          placeholder="Select a date"
+        />
       </div>
 
       <div class="field">
@@ -47,18 +51,18 @@
         </select>
       </div>
 
-      <input type="submit" class="button -fill-gradient" value="Submit" />
+      <BaseButton type="submit" buttonClass="-fill-gradient">Select</BaseButton>
     </form>
   </div>
 </template>
 
 <script>
-import Datepicker from 'vuejs-datepicker'
+import datepicker from 'vuejs-datepicker'
 import NProgress from 'nprogress'
 
 export default {
   components: {
-    Datepicker
+    datepicker
   },
   data() {
     const times = []
@@ -72,6 +76,12 @@ export default {
     }
   },
   methods: {
+    customFormatter(date) {
+      const dateFormatted = date.toString().substr(0, 15)
+      // yuck!!!
+      this.event.date = dateFormatted
+      return dateFormatted
+    },
     createEvent() {
       NProgress.start()
       this.$store
