@@ -5,6 +5,7 @@ import EventList from '../views/EventList.vue'
 import EventShow from '../views/EventShow.vue'
 import NotFound from '../views/NotFound.vue'
 import NetworkIssue from '../views/NetworkIssue.vue'
+import Example from '../views/Example.vue'
 import NProgress from 'nprogress'
 import store from '../store/store'
 
@@ -16,6 +17,11 @@ const routes = [
     name: 'event-list',
     component: EventList,
     props: true
+  },
+  {
+    path: '/example',
+    name: 'example',
+    component: Example
   },
   {
     path: '/event/:id',
