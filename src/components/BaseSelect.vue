@@ -1,14 +1,18 @@
 <template>
   <div>
     <label v-if="label">{{ label }}</label>
-    <select :value="value" @change="updateValue" v-bind="$attrs">
+    <select
+      :value="value"
+      v-on="{ blur: $listeners.blur }"
+      @change="updateValue"
+      v-bind="$attrs"
+    >
       <option
         v-for="option in options"
         :value="option"
-        :key="option.id"
+        :key="option"
         :selected="option === value"
-      >
-        {{ option }}</option
+        >{{ option }}</option
       >
     </select>
   </div>
@@ -18,17 +22,12 @@
 export default {
   inheritAttrs: false,
   props: {
-    label: {
-      type: String,
-      default: ''
-    },
-    value: {
-      type: [String, Number]
-    },
     options: {
       type: Array,
       required: true
-    }
+    },
+    value: [String, Number],
+    label: String
   },
   methods: {
     updateValue(event) {

@@ -5,7 +5,7 @@ export const namespaced = true
 export const state = {
   events: [],
   event: {},
-  totalEvents: 0,
+  eventsTotal: 0,
   perPage: 3
 }
 
@@ -16,8 +16,8 @@ export const mutations = {
   SET_EVENTS(state, events) {
     state.events = events
   },
-  SET_TOTAL_EVENTS(state, count) {
-    state.totalEvents = count
+  SET_EVENTS_TOTAL(state, eventsTotal) {
+    state.eventsTotal = eventsTotal
   },
   SET_EVENT(state, event) {
     state.event = event
@@ -29,6 +29,7 @@ export const actions = {
     return EventService.postEvent(event)
       .then(() => {
         commit('ADD_EVENT', event)
+        commit('SET_EVENT', event)
         const notification = {
           type: 'success',
           message: 'Your event has been created!'
@@ -48,7 +49,7 @@ export const actions = {
     return EventService.getEvents(state.perPage, page)
       .then(response => {
         commit('SET_EVENTS', response.data)
-        commit('SET_TOTAL_EVENTS', response.headers['x-total-count'])
+        commit('SET_EVENTS_TOTAL', response.headers['x-total-count'])
       })
       .catch(error => {
         const notification = {
@@ -60,6 +61,9 @@ export const actions = {
       })
   },
   fetchEvent({ commit, getters, dispatch }, id) {
+    // FIXME: refresh on EventCreate page will try to fetch event id of "create" and will redirect to 404 page
+    // FIXME: how to prevent refreshing EventCreate page ???
+    // https://medium.com/js-dojo/how-to-prevent-browser-refresh-url-changes-or-route-navigation-in-vue-132e3f9f96cc
     const event = getters.getEventById(id)
     if (event) {
       commit('SET_EVENT', event)

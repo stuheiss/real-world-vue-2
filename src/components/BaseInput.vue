@@ -1,7 +1,12 @@
 <template>
   <div>
     <label v-if="label">{{ label }}</label>
-    <input :value="value" @input="updateValue" v-bind="$attrs" />
+    <input
+      :value="value"
+      v-on="listeners"
+      @input="updateValue"
+      v-bind="$attrs"
+    />
   </div>
 </template>
 
@@ -15,6 +20,16 @@ export default {
     },
     value: {
       type: [String, Number]
+    }
+  },
+  computed: {
+    // ensure input listener takes precedence
+    // use v-on="listeners" rather than v-on="$listeners"
+    listeners() {
+      return {
+        ...this.$listeners,
+        input: this.updateValue
+      }
     }
   },
   methods: {
