@@ -67,7 +67,6 @@
         <label>Date</label>
         <datepicker
           v-model="event.date"
-          :format="customFormatter"
           placeholder="Select a date"
           :input-class="{ error: $v.event.date.$error }"
         />
@@ -135,12 +134,6 @@ export default {
     }
   },
   methods: {
-    customFormatter(date) {
-      const dateFormatted = date.toString().substr(0, 15)
-      // yuck!!!
-      this.event.date = dateFormatted
-      return dateFormatted
-    },
     createEvent() {
       this.$v.$touch()
       if (this.$v.$invalid) {
